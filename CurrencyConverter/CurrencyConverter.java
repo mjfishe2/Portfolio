@@ -16,10 +16,26 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Provides a GUI for users to input an ammount and select
+ * currencies to convert to and from, displaying the result
+ */
 public class CurrencyConverter {
+    /**
+     * Array of currency codes representing different currencies
+     * index of each code corrosponds to the position in the GUI combox box
+     */
     private static final String[] codes = {null, "USD", "EUR", "JPY", "GBP", "CNY", "AUD", "CAD", "CHF", "HKD", "NZD"};
 
+    /**
+     * Main method, creates an instance of GUI and displays it
+     * @param args
+     */
     public static void main(String[] args) {
+        /**
+         * The GUI class represents the graphical user interface of the currency converter application.
+         * It extends the JFrame class and implements the ActionListener interface to handle user actions.
+         */
         class GUI extends JFrame implements ActionListener {
             private JLabel amountLabel, fromLabel, toLabel, resultLabel, conversionLogLabel;
             private JTextField amountField;
@@ -27,6 +43,9 @@ public class CurrencyConverter {
             private JButton convertButton;
             private JTextArea conversionLog;
 
+            /**
+             * Constructs a new GUI object and initializes its components.
+             */
             public GUI() {
                 setTitle("Caucasians Currency Converter");
                 setSize(500, 300);
@@ -64,7 +83,12 @@ public class CurrencyConverter {
                 setVisible(true);
             }
 
-
+            /**
+             * Handles the actionPerformed event triggered by the GUI components.
+             * It performs the currency conversion and updates the result and conversion log accordingly.
+             *
+             * @param e the ActionEvent object representing the user's action
+             */
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (e.getSource() == convertButton) {
@@ -107,8 +131,9 @@ public class CurrencyConverter {
                                 result = getNZDCurrency(amount, toIndex);
                                 break;
                         }
-
+                        //update the result label with the converted result
                         resultLabel.setText(String.format("Result: %.2f %s", result, toComboBox.getSelectedItem()));
+                        //update the conversion log with the conversion details
                         String conversion = String.format("%.2f %s converted to %s is %.2f %s\n", amount, fromComboBox.getSelectedItem(), toComboBox.getSelectedItem(), result, toComboBox.getSelectedItem());
                         conversionLog.append(conversion);
                     } catch (NumberFormatException ex) {
@@ -118,7 +143,7 @@ public class CurrencyConverter {
 
             }
         }
-
+        //creates a GUI object and displays it
         GUI currencyGUI = new GUI();
         currencyGUI.isDisplayable();
     }
